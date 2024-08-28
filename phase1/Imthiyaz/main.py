@@ -1,21 +1,19 @@
-import os
-import pandas as pd
 from sqlalchemy import create_engine
-from sqlalchemy.dialects.mysql import LONGTEXT
-from sqlalchemy.exc import SQLAlchemyError
 from creatingDatabase import databaseCredentials
 from files import runEngine
 from creatingDatabase import create_database
 
-databaseName = "New"
+newDatabaseName = "CSV_file_database"
 
-create_database(databaseName)
+create_database(newDatabaseName)
  
 user = databaseCredentials['user']
 password = databaseCredentials['password']
 host = databaseCredentials['host']
-database = databaseName
+database = newDatabaseName
+
+csv_files = ['E:\\NXTWAVE\\databases\\activity.csv', 'E:\\NXTWAVE\\databases\\opportunity.csv', 'E:\\NXTWAVE\\databases\\opportunity_latest_activities.csv']
 
 engine = create_engine(f'mysql+mysqlconnector://{user}:{password}@{host}/{database}')
 
-runEngine(engine)
+runEngine(engine, csv_files)
