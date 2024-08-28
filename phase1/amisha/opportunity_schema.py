@@ -1,7 +1,6 @@
 import pandas as pd
 from sqlalchemy import TEXT, Column, DateTime, Float, Integer, String
 
-
 def opportunity_schema(sample_chunk):
     columns = []
     for col_name in sample_chunk.columns:
