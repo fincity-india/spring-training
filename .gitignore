@@ -6,8 +6,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-phase1/AbdulWahab/PythonProject(LoadCSVtoSQL)/__pycache__
-phase1/AbdulWahab/PythonProject(LoadCSVtoSQL)/env
+/__pycache__
+/env
 ### STS ###
 .apt_generated
 .classpath

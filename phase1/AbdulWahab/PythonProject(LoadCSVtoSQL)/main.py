@@ -8,4 +8,7 @@ database = 'fincity2'
 
 engine = create_engine(f'mysql+mysqlconnector://{user}:{password}@{host}/{database}')
 
-loadData(engine)
+files=['Archive/activity.csv','Archive/opportunity.csv','Archive/opportunity_latest_activities.csv']
+tables=['activity','opportunity','opportunity_latest_activity']
+
+loadData(engine,files,tables)

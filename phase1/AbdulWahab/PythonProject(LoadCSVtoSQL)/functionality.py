@@ -1,10 +1,10 @@
 from sqlalchemy import MetaData, Table, Column, Integer, String, Float, BigInteger, \
   DateTime, TEXT
 from sqlalchemy.exc import SQLAlchemyError
+import logging
 import pandas as pd
-def loadData(engine):
-    files=['Archive/activity.csv','Archive/opportunity.csv','Archive/opportunity_latest_activities.csv']
-    tables=['activity','opportunity','opportunity_latest_activity']
+def loadData(engine,files,tables):
+    
     count=0
     for file in files:
         table_name = tables[count]
@@ -38,22 +38,27 @@ def loadData(engine):
        
         table = Table(table_name, metadata, *columns)
        
-        try:
-            metadata.create_all(engine)
-            print(f"Table '{table_name}' is created or already exists.")
-        except SQLAlchemyError as e:
-            print(f"Error creating table: {e}")
+        createTable(engine,metadata,table_name)
        
 
         chunk_size = 20000
-        i = 0
+        addChunksToSql(engine,file,table_name,chunk_size)
 
-        for chunk in pd.read_csv(file, chunksize=chunk_size):
-            try:
-                chunk.to_sql(name=table_name, con=engine, if_exists='append', index=False)
-                print(f'Inserted {i} chunk with {len(chunk)} rows')
-                i = i + 1
-            except SQLAlchemyError as e:
-                print(f"Error inserting data: {e}")
-                break
  
+def createTable(engine,metadata,table_name):
+    try:
+        metadata.create_all(engine)
+        logging.info(f"Table '{table_name}' is created or already exists.")
+    except SQLAlchemyError as e:
+        logging.error(f"Error creating table: {e}")
+
+def addChunksToSql(engine,file,table_name,chunk_size):
+    i=0
+    for chunk in pd.read_csv(file, chunksize=chunk_size):
+        try:
+            chunk.to_sql(name=table_name, con=engine, if_exists='append', index=False)
+            logging.info(f'Inserted {i} chunk with {len(chunk)} rows')
+            i = i + 1
+        except SQLAlchemyError as e:
+            logging.error(f"Error inserting data: {e}")
+            break
