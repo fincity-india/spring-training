@@ -55,7 +55,7 @@ def loadData(engine):
             print(f"Error creating table: {e}")
        
         # Specify the chunk size (number of rows per chunk)
-        chunk_size = 15000
+        chunk_size = 20000
         i = 0
         # Load CSV in chunks and insert into the MySQL table
         for chunk in pd.read_csv(file, chunksize=chunk_size):
