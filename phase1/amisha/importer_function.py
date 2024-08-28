@@ -3,6 +3,7 @@ import pandas as pd
 from sqlalchemy import MetaData, Table
 from sqlalchemy.exc import SQLAlchemyError
 
+
 def importer_function(csv_file_path, table_name, engine, schema_func):
     sample_chunk = pd.read_csv(csv_file_path, nrows=1000)
     metadata = MetaData()

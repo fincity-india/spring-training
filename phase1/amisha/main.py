@@ -4,6 +4,7 @@ from importer_function import importer_function
 from latest_activity_schema import latest_activity_schema
 from opportunity_schema import opportunity_schema
 
+
 def main():
     user = 'root'
     password = 'root'

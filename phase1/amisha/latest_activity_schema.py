@@ -1,5 +1,6 @@
 from sqlalchemy import TEXT, Column, DateTime, Integer, String
 
+
 def latest_activity_schema(sample_chunk):
     columns = [
         Column('id', Integer),
