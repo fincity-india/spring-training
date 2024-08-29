@@ -12,17 +12,13 @@ def main():
     host = '********' 
     main_folder = 'files'
     main_folder_path = Path(main_folder)
-    print(main_folder)
     if not main_folder_path.exists():
         logging.error(f"The directory '{main_folder}' does not exist.")
     folders = [folder for folder in main_folder_path.iterdir() if folder.is_dir()]
-    print(folders)
     if not folders:
         logging.error("No subdirectories found in the specified main folder.")  
     database = os.path.basename(folders[0])
-    print(database)
     files = [str(file) for file in folders[0].iterdir() if file.is_file()]
-    print(files)
     engine = create_engine(f'mysql+mysqlconnector://{user}:{password}@{host}/{database}')
     metadata = MetaData()
     chunk_size=15000
