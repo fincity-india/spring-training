@@ -31,8 +31,8 @@ def insert_data(csv_file_path, table_name, engine, chunk_size=15000):
             break
 
 def get_table_name():
-    main_folder = 'phase1/amisha/Databases'
-    main_folder_path = Path(main_folder)
+    main_folder = os.path.join("phase1", "amisha")
+    main_folder_path = Path(os.path.join(main_folder,'Databases'))
     if not main_folder_path.exists():
         logging.error(f"The directory '{main_folder}' does not exist.")
     folders = [folder for folder in main_folder_path.iterdir() if folder.is_dir()]
