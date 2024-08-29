@@ -1,15 +1,9 @@
 import os
-from sqlalchemy import create_engine
-from utils import create_table, get_table_name, insert_data
+from utils import create_table, engine_creator, get_table_name, insert_data
 
 
 def main():
-    user = '****'
-    password = '****'
-    host = '****'
-    database = 'FincityData'
-    engine = create_engine(f'mysql+mysqlconnector://{user}:{password}@{host}/{database}')
-    
+    engine = engine_creator()
     files = get_table_name()
     for file in files:
         table_name = os.path.splitext(os.path.basename(file))[0]
