@@ -1,50 +1,37 @@
-from sqlalchemy import MetaData, Table, Column, Integer, String, Float, BigInteger, \
+from sqlalchemy import Table, Column, Integer, String, Float, BigInteger, \
   DateTime, TEXT
 from sqlalchemy.exc import SQLAlchemyError
 import logging
 import pandas as pd
-def loadData(engine,files,tables):
-    
-    count=0
-    for file in files:
-        table_name = tables[count]
-        count+=1
- 
-        sample_chunk = pd.read_csv(file, nrows=1000)
-            
-        metadata = MetaData()
- 
-        columns = []
-        for col_name in sample_chunk.columns:
-            col_data = sample_chunk[col_name]
-            if col_name == 'phone_number' or col_name == 'whatsapp_number' or col_name=='alternate_phone_number':
-                columns.append(Column(col_name, String(150)))
-            elif col_name == 'created_at_epoch' or col_name == 'updated_at_epoch':
-                columns.append(Column(col_name, BigInteger))
-            elif col_name == 'comment':
-                columns.append(Column(col_name, TEXT))
-            elif col_name == 'latest_comment':
-                columns.append(Column(col_name, TEXT))
-            elif col_name == 'metadata':
-                columns.append(Column(col_name, TEXT))
-            elif pd.api.types.is_integer_dtype(col_data) and not col_data.isna().all():
-                columns.append(Column(col_name, Integer))
-            elif pd.api.types.is_float_dtype(col_data) and not col_data.isna().all():
-                columns.append(Column(col_name, Float))
-            elif pd.api.types.is_datetime64_any_dtype(col_data) and not col_data.isna().all():
-                columns.append(Column(col_name, DateTime))
-            else:
-                columns.append(Column(col_name, String(255)))
-       
-        table = Table(table_name, metadata, *columns)
-       
-        createTable(engine,metadata,table_name)
-       
 
-        chunk_size = 20000
-        addChunksToSql(engine,file,table_name,chunk_size)
 
- 
+def loadData(file,table_name,metadata):
+
+    sample_chunk = pd.read_csv(file, nrows=1000)
+    columns = []
+    for col_name in sample_chunk.columns:
+        col_data = sample_chunk[col_name]
+        if col_name == 'phone_number' or col_name == 'whatsapp_number' or col_name=='alternate_phone_number':
+            columns.append(Column(col_name, String(150)))
+        elif col_name == 'created_at_epoch' or col_name == 'updated_at_epoch':
+            columns.append(Column(col_name, BigInteger))
+        elif col_name == 'comment':
+            columns.append(Column(col_name, TEXT))
+        elif col_name == 'latest_comment':
+            columns.append(Column(col_name, TEXT))
+        elif col_name == 'metadata':
+            columns.append(Column(col_name, TEXT))
+        elif pd.api.types.is_integer_dtype(col_data) and not col_data.isna().all():
+            columns.append(Column(col_name, Integer))
+        elif pd.api.types.is_float_dtype(col_data) and not col_data.isna().all():
+            columns.append(Column(col_name, Float))
+        elif pd.api.types.is_datetime64_any_dtype(col_data) and not col_data.isna().all():
+            columns.append(Column(col_name, DateTime))
+        else:
+            columns.append(Column(col_name, String(255)))
+       
+    table = Table(table_name, metadata, *columns)
+        
 def createTable(engine,metadata,table_name):
     try:
         metadata.create_all(engine)
