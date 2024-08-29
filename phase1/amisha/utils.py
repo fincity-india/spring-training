@@ -1,15 +1,16 @@
 import logging
 import os
+from pathlib import Path
 import pandas as pd
 from sqlalchemy import MetaData, Table
 from sqlalchemy.exc import SQLAlchemyError
-from schema import schemaCreator
+from schema import schema_creator
 
 
 def create_table(csv_file_path, table_name, engine):
     sample_chunk = pd.read_csv(csv_file_path, nrows=1000)
     metadata = MetaData()
-    columns = schemaCreator(sample_chunk)
+    columns = schema_creator(sample_chunk)
     table = Table(table_name, metadata, *columns)
     try:
         metadata.create_all(engine)
@@ -30,11 +31,14 @@ def insert_data(csv_file_path, table_name, engine, chunk_size=15000):
             break
 
 def get_table_name():
-    main_folder = 'phase1\\amisha\\Databases'
-    folders = [name for name in os.listdir(main_folder) if os.path.isdir(os.path.join(main_folder, name))]
- 
-    database=folders[0]
-    database_path=main_folder+"\\"+database
-    files=[database_path+"\\"+name for name in os.listdir(database_path)]
+    main_folder = 'phase1/amisha/Databases'
+    main_folder_path = Path(main_folder)
+    if not main_folder_path.exists():
+        logging.error(f"The directory '{main_folder}' does not exist.")
+    folders = [folder for folder in main_folder_path.iterdir() if folder.is_dir()]
+    if not folders:
+        logging.error("No subdirectories found in the specified main folder.")  
+    database = folders[0] 
+    files = [str(file) for file in database.iterdir() if file.is_file()]
     return files
     
