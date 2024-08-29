@@ -1,13 +1,19 @@
 import pandas as pd
-from sqlalchemy import TEXT, Column, DateTime, Float, Integer, String
+from sqlalchemy import TEXT, BigInteger, Column, DateTime, Float, Integer, String
 
 
-def opportunity_schema(sample_chunk):
+def schemaCreator(sample_chunk):
     columns = []
     for col_name in sample_chunk.columns:
         col_data = sample_chunk[col_name]
-        if col_name in ['phone_number', 'whatsapp_number', 'alternate_phone_number']:
+        if col_name == 'phone_number' or col_name == 'whatsapp_number' or col_name=='alternate_phone_number':
             columns.append(Column(col_name, String(150)))
+        elif col_name == 'created_at_epoch' or col_name == 'updated_at_epoch':
+            columns.append(Column(col_name, BigInteger))
+        elif col_name == 'comment':
+            columns.append(Column(col_name, TEXT))
+        elif col_name == 'latest_comment':
+            columns.append(Column(col_name, TEXT))
         elif col_name == 'metadata':
             columns.append(Column(col_name, TEXT))
         elif pd.api.types.is_integer_dtype(col_data) and not col_data.isna().all():
