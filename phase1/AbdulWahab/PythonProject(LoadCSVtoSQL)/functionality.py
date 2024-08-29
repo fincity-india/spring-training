@@ -5,7 +5,7 @@ import logging
 import pandas as pd
 
 
-def loadData(file,table_name,metadata):
+def load_data(file,table_name,metadata):
 
     sample_chunk = pd.read_csv(file, nrows=1000)
     columns = []
@@ -32,14 +32,14 @@ def loadData(file,table_name,metadata):
        
     table = Table(table_name, metadata, *columns)
         
-def createTable(engine,metadata,table_name):
+def create_table(engine,metadata,table_name):
     try:
         metadata.create_all(engine)
         logging.info(f"Table '{table_name}' is created or already exists.")
     except SQLAlchemyError as e:
         logging.error(f"Error creating table: {e}")
 
-def addChunksToSql(engine,file,table_name,chunk_size):
+def add_chunks_to_sql(engine,file,table_name,chunk_size):
     i=0
     for chunk in pd.read_csv(file, chunksize=chunk_size):
         try:
