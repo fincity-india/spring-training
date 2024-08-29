@@ -1,19 +1,26 @@
 from sqlalchemy import create_engine
-from creatingDatabase import databaseCredentials
 from files import runEngine
 from creatingDatabase import create_database
+import os
+from dotenv import load_dotenv
 
-newDatabaseName = "CSV_file_database"
+load_dotenv()
 
-create_database(newDatabaseName)
- 
-user = databaseCredentials['user']
-password = databaseCredentials['password']
-host = databaseCredentials['host']
-database = newDatabaseName
+def main():
+    newDatabaseName = "test_database"
 
-csv_files = ['E:\\NXTWAVE\\databases\\activity.csv', 'E:\\NXTWAVE\\databases\\opportunity.csv', 'E:\\NXTWAVE\\databases\\opportunity_latest_activities.csv']
+    create_database(newDatabaseName)
+    
+    user = os.getenv('USER')
+    password = os.getenv('PASSWORD')
+    host = os.getenv('HOST')
+    database = newDatabaseName
 
-engine = create_engine(f'mysql+mysqlconnector://{user}:{password}@{host}/{database}')
+    csv_files = ['E:\\NXTWAVE\\databases\\activity.csv', 'E:\\NXTWAVE\\databases\\opportunity.csv', 'E:\\NXTWAVE\\databases\\opportunity_latest_activities.csv']
 
-runEngine(engine, csv_files)
+    engine = create_engine(f'mysql+mysqlconnector://{user}:{password}@{host}/{database}')
+
+    runEngine(engine, csv_files)
+
+if __name__ == "__main__":
+    main()

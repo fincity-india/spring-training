@@ -3,6 +3,7 @@ from sqlalchemy import MetaData, Table, Column, Integer, String, Float, BigInteg
   DateTime, TEXT
 from sqlalchemy.dialects.mysql import LONGTEXT
 from sqlalchemy.exc import SQLAlchemyError
+import logging
 
 
 def loopfunction(sample_chunk, columns):
@@ -39,18 +40,18 @@ def runEngine(engine, csv_files):
         table = Table(table_name, metadata, *columns)
         try:
             metadata.create_all(engine)
-            print(f"Table '{table_name}' is created or already exists.")
+            logging.info(f"Table '{table_name}' is created.")
         except SQLAlchemyError as e:
-            print(f"Error creating table: {e}")
+            logging.error(f"Error creating table: {e}")
         
         chunk_size = 15000
         i = 0
         for chunk in pd.read_csv(csv_file_path, chunksize=chunk_size):
             try:
                 chunk.to_sql(name=table_name, con=engine, if_exists='append', index=False)
-                print(f'Inserted {i} chunk with {len(chunk)} rows')
+                logging.info(f'Inserted {i} chunk with {len(chunk)} rows')
                 i = i + 1
             except SQLAlchemyError as e:
-                print(f"Error inserting data: {e}")
+                logging.error(f"Error inserting data: {e}")
                 break
-print("Finished loading the all CSV files into the MySQL database.")
+logging.info("Finished loading the all CSV files into the MySQL database.")
