@@ -61,23 +61,19 @@ def create_database(database_name):
             user= user, 
             password= password 
             )
-        
         if connection.is_connected():
             logging.info('Connected to MySQL server')
-
             cursor = connection.cursor()
             create_db_query = f"CREATE DATABASE {database_name}"
             cursor.execute(create_db_query)
             logging.info(f"Database `{database_name}` created successfully")
-
-    except Error as e:
-        logging.error(f"Error: {e}")
-
-    finally:
-        if connection.is_connected():
             cursor.close()
             connection.close()
             logging.info("MySQL connection is closed")
+
+    except Error as e:
+        logging.error(f"Error: {e}")
+            
 
 def engine_creator():
     files, database = get_table_name()
