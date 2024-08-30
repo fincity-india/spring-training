@@ -1,6 +1,9 @@
 import logging
 from pathlib import Path
+from urllib.parse import quote
 import pandas as pd
+from database import get_engine, create_table
+import os
 from sqlalchemy import Column, Integer, String, Float, BigInteger, DateTime, TEXT
 from sqlalchemy.exc import SQLAlchemyError
 
@@ -42,3 +45,33 @@ def check_directory_structure(directory_path):
         raise NotADirectoryError(f"{directory_path} is not a directory.")
     if not any(directory_path.iterdir()):
         raise FileNotFoundError(f"Directory '{directory_path}' is empty.")
+try:
+        cwd = Path(os.getcwd())
+        logging.info(f"Current working directory: {cwd}")
+        directory_path = cwd / 'venv'/ 'data'
+        if not directory_path.exists():
+            raise FileNotFoundError(f"Directory '{directory_path}' does not exist.")
+        
+        database = directory_path.name
+        user = 'root'
+        password = quote('A1b2c3@123')
+        host = 'localhost'
+        engine = get_engine(user, password, host, database)
+        check_directory_structure(directory_path)
+        csv_files = list_files(directory_path)
+        for index, file_path in enumerate(csv_files):
+            file_path = Path(file_path)
+            table_name = file_path.stem.replace('.', '_')
+            sample_chunk = pd.read_csv(file_path, nrows=1000)
+            columns = infer_table_schema(sample_chunk)
+            
+            create_table(engine, table_name, columns)
+            load_file_to_db(engine, file_path, table_name)
+            
+            logging.info(f'Processed file {index + 1}/{len(csv_files)}: {file_path.name}')
+
+            logging.info(f"Finished loading {len(csv_files)} files into the MySQL database '{database}'.")
+    
+except Exception as e:
+         logging.error(f"An error occurred: {e}")
+         raise
