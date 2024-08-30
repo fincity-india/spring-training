@@ -1,15 +1,11 @@
-import os
+import logging
 from pathlib import Path
 import pandas as pd
 from sqlalchemy import Column, Integer, String, Float, BigInteger, DateTime, TEXT
 from sqlalchemy.exc import SQLAlchemyError
-import logging
 
 def list_files(directory_path):
     return [file for file in directory_path.iterdir() if file.is_file()]
-
-def check_directory_structure(directory_path):
-    return True  
 
 def infer_table_schema(sample_chunk):
     columns = []
@@ -33,12 +29,16 @@ def infer_table_schema(sample_chunk):
 
 def load_file_to_db(engine, file_path, table_name):
     chunk_size = 15000
-    i = 0
-    for chunk in pd.read_csv(file_path, chunksize=chunk_size):
+    for i, chunk in enumerate(pd.read_csv(file_path, chunksize=chunk_size)):
         try:
             chunk.to_sql(name=table_name, con=engine, if_exists='append', index=False)
             logging.info(f'Inserted chunk {i + 1} with {len(chunk)} rows into {table_name}')
-            i += 1
         except SQLAlchemyError as e:
             logging.error(f"Error inserting data: {e}")
-            break
+            raise
+
+def check_directory_structure(directory_path):
+    if not directory_path.is_dir():
+        raise NotADirectoryError(f"{directory_path} is not a directory.")
+    if not any(directory_path.iterdir()):
+        raise FileNotFoundError(f"Directory '{directory_path}' is empty.")
