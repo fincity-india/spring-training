@@ -7,16 +7,20 @@ from pathlib import Path
 
 
 def main():
-    user = '********'
-    password = quote("********")
-    host = '********' 
-    main_folder = 'files'
-    main_folder_path = Path(main_folder)
+    user = '****'
+    password = "****"
+    host = '******' 
+    current_directory = Path(os.getcwd())
+    main_folder_path = None
+    for path in current_directory.rglob("*"):
+        if path.is_dir() and path.name == "Databases":
+            main_folder_path = path
+            break
     if not main_folder_path.exists():
-        logging.error(f"The directory '{main_folder}' does not exist.")
+        raise FileNotFoundError
     folders = [folder for folder in main_folder_path.iterdir() if folder.is_dir()]
     if not folders:
-        logging.error("No subdirectories found in the specified main folder.")  
+        raise FileNotFoundError  
     database = os.path.basename(folders[0])
     files = [str(file) for file in folders[0].iterdir() if file.is_file()]
     engine = create_engine(f'mysql+mysqlconnector://{user}:{password}@{host}/{database}')
@@ -25,8 +29,8 @@ def main():
 
     for file in files:
         table_name = os.path.splitext(os.path.basename(file))[0]
-        load_data(file,table_name,metadata)
-        create_table(engine,metadata,table_name)
+        columns=load_data(file)
+        create_table(engine,metadata,table_name,columns)
         add_chunks_to_sql(engine,file,table_name,chunk_size)
 
 if __name__ == "__main__":
