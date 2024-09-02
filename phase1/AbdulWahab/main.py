@@ -7,9 +7,9 @@ from pathlib import Path
 
 
 def main():
-    user = 'root'
-    password = quote("Abdul@954")
-    host = 'localhost' 
+    user = '********'
+    password = quote("********")
+    host = '********' 
     main_folder = 'DatabaseFile'
     main_folder_path = Path(main_folder)
     if not main_folder_path.exists():
