@@ -2,7 +2,11 @@ import pandas as pd
 from sqlalchemy import TEXT, BigInteger, Column, DateTime, Float, Integer, String
 
 
+<<<<<<< Updated upstream
 def schema_creator(sample_chunk):
+=======
+def schemaCreator(sample_chunk):
+>>>>>>> Stashed changes
     columns = []
     for col_name in sample_chunk.columns:
         col_data = sample_chunk[col_name]
