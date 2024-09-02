@@ -6,7 +6,7 @@ from mysql.connector import Error
 import pandas as pd
 from sqlalchemy import MetaData, Table, create_engine
 from sqlalchemy.exc import SQLAlchemyError
-from TableSchema import schema_creator
+from schema import schema_creator
 import os
 from dotenv import load_dotenv
 
@@ -73,6 +73,8 @@ def create_database(database_name):
 
     except Error as e:
         logging.error(f"Error: {e}")
+            
+
 def engine_creator():
     files, database = get_table_name()
     engine = create_engine(f'mysql+mysqlconnector://{user}:{password}@{host}/{database}')
