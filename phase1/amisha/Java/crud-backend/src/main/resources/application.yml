@@ -1,0 +1,19 @@
+server:
+  port: 8080
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://****:****@fincitydata.vn4dl.mongodb.net/Fincity?retryWrites=true&w=majority&appName=FincityData  
+  datasource:
+    password: ****
+    url: jdbc:mysql://localhost:3306/cruddata
+    username: ****
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl:
+        auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    show-sql: true
