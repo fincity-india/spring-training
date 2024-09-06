@@ -1,10 +1,10 @@
-package com.SpringMySQL.SpringMySQL.service;
+package com.SpringMongoMySQL.SpringMongoMySQL.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.SpringMySQL.SpringMySQL.model.Student;
-import com.SpringMySQL.SpringMySQL.repository.StudentRepo;
+import com.SpringMongoMySQL.SpringMongoMySQL.model.Student;
+import com.SpringMongoMySQL.SpringMongoMySQL.repository.StudentRepo;
 
 @Service
 public class StudentService {
@@ -12,7 +12,7 @@ public class StudentService {
 	@Autowired
 	private StudentRepo studentRepo;
 	
-	public Student saveDetails(Student student)
+	public Student setDetails(Student student)
 	{
 		return studentRepo.save(student);
 	}

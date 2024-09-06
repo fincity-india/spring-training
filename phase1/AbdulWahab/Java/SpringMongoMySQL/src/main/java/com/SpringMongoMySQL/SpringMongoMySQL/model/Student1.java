@@ -1,38 +1,30 @@
-package com.SpringMySQL.SpringMySQL.model;
+package com.SpringMongoMySQL.SpringMongoMySQL.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
+//import lombok.AllArgsConstructor;
+//import lombok.Data;
+//import lombok.NoArgsConstructor;
+
+@Document
 //@Data
 //@NoArgsConstructor
 //@AllArgsConstructor
-@Table(name="Student_db")
-public class Student {
+public class Student1 {
 	
 	@Id
-	@Column(name="id")
-	@GeneratedValue
 	private int id;
 	
-	@Column(name="name")
 	private String name;
 	
-	@Column(name="address")
 	private String address;
 	
-	public Student()
-	{
+	public Student1() {
 		
 	}
 
-	public Student(int id, String name, String address) {
+	public Student1(int id, String name, String address) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -64,5 +56,5 @@ public class Student {
 	}
 	
 	
-	
 }
+

@@ -1,13 +1,13 @@
-package com.SpringMySQL.SpringMySQL;
+package com.SpringMongoMySQL.SpringMongoMySQL;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringMySqlApplication {
+public class SpringMongoMySqlApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringMySqlApplication.class, args);
+		SpringApplication.run(SpringMongoMySqlApplication.class, args);
 	}
 
 }
