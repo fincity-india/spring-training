@@ -1,4 +1,7 @@
-package com.SpringMongoMySQL.SpringMongoMySQL.model;
+package com.JsonSchemaValidator.JsonSchemaValidator.model;
+
+
+
 
 
 import jakarta.persistence.Column;
@@ -6,20 +9,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
 
 @Entity
-//@Data
-//@NoArgsConstructor
-//@AllArgsConstructor
-@Table(name="Student_db")
-public class Student {
+@Table(name="Employee_db")
+
+public class EmployeeMysql {
 	
 	@Id
-	@Column(name="id")
 	@GeneratedValue
+	@Column(name="id")
 	private int id;
 	
 	@Column(name="name")
@@ -28,16 +27,20 @@ public class Student {
 	@Column(name="address")
 	private String address;
 	
-	public Student()
+	@Column(name="salary")
+	private float salary;
+	
+	public EmployeeMysql()
 	{
 		
 	}
 
-	public Student(int id, String name, String address) {
+	public EmployeeMysql(int id, String name, String address, float salary) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.address = address;
+		this.salary = salary;
 	}
 
 	public int getId() {
@@ -63,7 +66,14 @@ public class Student {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
+
+	public float getSalary() {
+		return salary;
+	}
+
+	public void setSalary(float salary) {
+		this.salary = salary;
+	}
 	
 	
 }

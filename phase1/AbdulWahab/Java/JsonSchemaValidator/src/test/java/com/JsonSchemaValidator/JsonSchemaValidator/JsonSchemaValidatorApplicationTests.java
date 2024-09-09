@@ -1,10 +1,10 @@
-package com.SpringMongoMySQL.SpringMongoMySQL;
+package com.JsonSchemaValidator.JsonSchemaValidator;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpringMongoMySqlApplicationTests {
+class JsonSchemaValidatorApplicationTests {
 
 	@Test
 	void contextLoads() {

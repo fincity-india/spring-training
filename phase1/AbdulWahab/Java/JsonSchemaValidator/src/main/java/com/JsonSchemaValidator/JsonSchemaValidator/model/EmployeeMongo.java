@@ -1,17 +1,15 @@
-package com.SpringMongoMySQL.SpringMongoMySQL.model;
+package com.JsonSchemaValidator.JsonSchemaValidator.model;
+
+
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-//import lombok.AllArgsConstructor;
-//import lombok.Data;
-//import lombok.NoArgsConstructor;
+
+
 
 @Document
-//@Data
-//@NoArgsConstructor
-//@AllArgsConstructor
-public class Student1 {
+public class EmployeeMongo {
 	
 	@Id
 	private int id;
@@ -20,15 +18,19 @@ public class Student1 {
 	
 	private String address;
 	
-	public Student1() {
+	private float salary;
+	
+	public EmployeeMongo()
+	{
 		
 	}
 
-	public Student1(int id, String name, String address) {
+	public EmployeeMongo(int id, String name, String address, float salary) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.address = address;
+		this.salary = salary;
 	}
 
 	public int getId() {
@@ -53,6 +55,14 @@ public class Student1 {
 
 	public void setAddress(String address) {
 		this.address = address;
+	}
+
+	public float getSalary() {
+		return salary;
+	}
+
+	public void setSalary(float salary) {
+		this.salary = salary;
 	}
 	
 	
