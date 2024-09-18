@@ -16,42 +16,42 @@ import com.fasterxml.jackson.databind.JsonNode;
 @RestController
 public class DataController {
 
-	
-	@Autowired
-    private DataService dataService;;
-    
-    @Autowired
-    private SchemaController schemaController;
 
-    @PostMapping("/insert/{_id}")
-    public ResponseEntity<String> insertJson(@PathVariable("_id") String id,@RequestBody JsonNode jsonData) {
-        try {
-        	JsonNode schema=schemaController.getSchema(id);
-            String dataId=dataService.addToMongo(jsonData,schema);
-            return ResponseEntity.ok("JSON data inserted successfully with Id:"+dataId);
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Failed to insert JSON: " + e.getMessage());
-        }
-    }
-    
-    @GetMapping("getData/{id}")
-    public JsonNode getDataById(@PathVariable("id") String id) {
-    	try {
+	@Autowired
+	private DataService dataService;;
+
+	@Autowired
+	private SchemaController schemaController;
+
+	@PostMapping("/insert/{_id}")
+	public ResponseEntity<String> insertJson(@PathVariable("_id") String id,@RequestBody JsonNode jsonData) {
+		try {
+			JsonNode schema=schemaController.getSchema(id);
+			String dataId=dataService.addToMongo(jsonData,schema);
+			return ResponseEntity.ok("JSON data inserted successfully with Id:"+dataId);
+		} catch (Exception e) {
+			return ResponseEntity.status(500).body("Failed to insert JSON: " + e.getMessage());
+		}
+	}
+
+	@GetMapping("getData/{id}")
+	public JsonNode getDataById(@PathVariable("id") String id) {
+		try {
 			return dataService.getDataFromMongo(id);
 		} catch (Exception exception) {
 			exception.printStackTrace();
 		}
-    	return null;
-    }
-    
-    @PutMapping("/updateData/{id}")
+		return null;
+	}
+
+	@PutMapping("/updateData/{id}")
 	public ResponseEntity<String> updateData(@RequestBody JsonNode data, @PathVariable("id") String id)
 	{
 		dataService.updateDataToMongo(data,id);
 		return ResponseEntity.ok("JSON schema updated successfully");
 	}
-    
-    @DeleteMapping("/deleteData/{_id}")
+
+	@DeleteMapping("/deleteData/{_id}")
 	public ResponseEntity<String> deleteSchema(@PathVariable("_id") String id)
 	{
 		dataService.deleteDataFromMongo(id);

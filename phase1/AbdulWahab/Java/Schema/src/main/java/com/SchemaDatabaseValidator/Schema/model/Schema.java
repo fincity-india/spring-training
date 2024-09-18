@@ -9,21 +9,21 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 @Document
 public class Schema {
-	
+
 	private ObjectId _id;
 	private String schemaName;
 	private Object schema;
 	private int version;
-	
-	@CreatedDate
-    private Date createdAt;
 
-    @LastModifiedDate
-    private Date updatedAt;
-    
-    public Schema() {
-    	
-    }
+	@CreatedDate
+	private Date createdAt;
+
+	@LastModifiedDate
+	private Date updatedAt;
+
+	public Schema() {
+
+	}
 
 	public Schema(ObjectId _id, String schemaName, Object schema, int version, Date createdAt, Date updatedAt) {
 		super();
@@ -82,6 +82,6 @@ public class Schema {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-    
-    
+
+
 }
