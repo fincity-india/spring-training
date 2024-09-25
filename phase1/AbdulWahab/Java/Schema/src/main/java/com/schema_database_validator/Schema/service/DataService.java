@@ -1,4 +1,4 @@
-package com.schema_database_validator.service;
+package com.schema_database_validator.schema.service;
 
 import java.util.List;
 import java.util.Map;
@@ -11,9 +11,9 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import com.schema_database_validator.exception.DataNotFoundException;
-import com.schema_database_validator.exception.InvalidDataException;
-import com.schema_database_validator.validator.CustomJsonSchemaValidator;
+import com.schema_database_validator.schema.exception.DataNotFoundException;
+import com.schema_database_validator.schema.exception.InvalidDataException;
+import com.schema_database_validator.schema.validator.CustomJsonSchemaValidator;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

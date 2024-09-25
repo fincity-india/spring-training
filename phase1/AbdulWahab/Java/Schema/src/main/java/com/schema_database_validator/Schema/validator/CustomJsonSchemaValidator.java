@@ -1,4 +1,4 @@
-package com.SchemaDatabaseValidator.Schema.validator;
+package com.schema_database_validator.schema.validator;
 
 import com.fasterxml.jackson.databind.JsonNode;
 

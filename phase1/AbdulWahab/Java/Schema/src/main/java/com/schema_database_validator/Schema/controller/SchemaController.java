@@ -1,4 +1,4 @@
-package com.schema_database_validator.controller;
+package com.schema_database_validator.schema.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.schema_database_validator.model.Schema;
-import com.schema_database_validator.service.SchemaService;
+import com.schema_database_validator.schema.model.Schema;
+import com.schema_database_validator.schema.service.SchemaService;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.List;
