@@ -1,4 +1,4 @@
-package com.SchemaDatabaseValidator.Schema.service;
+package com.schema_database_validator.service;
 
 
 import org.bson.types.ObjectId;
@@ -8,9 +8,9 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import com.SchemaDatabaseValidator.Schema.exception.SchemaNotFoundException;
-import com.SchemaDatabaseValidator.Schema.model.Schema;
-import com.SchemaDatabaseValidator.Schema.repository.SchemaRepo;
+import com.schema_database_validator.exception.SchemaNotFoundException;
+import com.schema_database_validator.model.Schema;
+import com.schema_database_validator.repository.SchemaRepo;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 

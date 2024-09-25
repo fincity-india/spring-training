@@ -1,4 +1,4 @@
-package com.SchemaDatabaseValidator.Schema.exception;
+package com.schema_database_validator.exception;
 
 public class DataNotFoundException extends RuntimeException{
 	public DataNotFoundException(String message) {

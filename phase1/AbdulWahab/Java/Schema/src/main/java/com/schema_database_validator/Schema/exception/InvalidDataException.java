@@ -1,4 +1,4 @@
-package com.SchemaDatabaseValidator.Schema.exception;
+package com.schema_database_validator.exception;
 
 public class InvalidDataException extends RuntimeException{
 	public InvalidDataException(String message) {

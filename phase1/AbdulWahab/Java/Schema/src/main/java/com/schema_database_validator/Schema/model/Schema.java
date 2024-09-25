@@ -1,4 +1,4 @@
-package com.SchemaDatabaseValidator.Schema.model;
+package com.schema_database_validator.model;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.CreatedDate;
