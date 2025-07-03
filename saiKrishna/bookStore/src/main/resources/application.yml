@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: bookstore
+  config:
+    import: "configserver:http://localhost:8888"
+  r2dbc:
+    url: r2dbc:mysql://localhost:3306/bookstore
+    username: root
+    password: Saikrishna@123
+
+server:
+  port: 8080
+
